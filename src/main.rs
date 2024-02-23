@@ -1,8 +1,6 @@
 use anyhow;
 use std::collections::HashMap;
-use std::fmt::format;
 use std::fs;
-use std::path::Path;
 
 const THERMAL_ZONE_ROOT: &str = "/sys/class/thermal";
 
@@ -24,7 +22,7 @@ fn get_thermal_zone_paths() -> Result<Vec<String>, std::io::Error> {
         };
         let path = entry.path();
         if path.is_dir() && path.to_string_lossy().contains("thermal_zone") {
-            paths.push(path.to_string_lossy().into_owned());
+            paths.push(path.file_name().to_string_lossy().into_owned());
         }
     }
 
@@ -37,6 +35,7 @@ fn main() -> anyhow::Result<()> {
     let mut tmzmap = HashMap::<String, u32>::new();
     for thermal_zone in thermal_zones {
         let path = format!("{}/{}", THERMAL_ZONE_ROOT, thermal_zone);
+        dbg!();
         let temp = read_temperature_from_file(&path)?;
         tmzmap.insert(path, temp);
     }
