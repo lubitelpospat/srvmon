@@ -34,8 +34,8 @@ fn main() -> anyhow::Result<()> {
     let thermal_zones = get_thermal_zone_paths()?;
     let mut tmzmap = HashMap::<String, u32>::new();
     for thermal_zone in thermal_zones {
-        let path = format!("{}/{}", THERMAL_ZONE_ROOT, thermal_zone);
-        dbg!();
+        let path = format!("{}/{}/temp", THERMAL_ZONE_ROOT, thermal_zone);
+        dbg!(&path);
         let temp = read_temperature_from_file(&path)?;
         tmzmap.insert(path, temp);
     }
