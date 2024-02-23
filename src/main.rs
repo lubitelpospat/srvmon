@@ -22,7 +22,7 @@ fn get_thermal_zone_paths() -> Result<Vec<String>, std::io::Error> {
         };
         let path = entry.path();
         if path.is_dir() && path.to_string_lossy().contains("thermal_zone") {
-            paths.push(path.file_name().to_string_lossy().into_owned());
+            paths.push(path.file_name().unwrap().to_string_lossy().into_owned());
         }
     }
 
