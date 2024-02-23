@@ -4,7 +4,7 @@ use std::fmt::format;
 use std::fs;
 use std::path::Path;
 
-const THERMAL_ZONE_ROOT: &str = "/sys/class/thermal/";
+const THERMAL_ZONE_ROOT: &str = "/sys/class/thermal";
 
 fn read_temperature_from_file(file_name: &str) -> anyhow::Result<u32> {
     let contents = fs::read_to_string(file_name)?;
